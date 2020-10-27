@@ -1,6 +1,6 @@
 # OpenWRT
 
-## enable HTTPS
+## enable HTTPS on uhttpd
 
 ```bash
 opkg update
