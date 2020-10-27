@@ -12,6 +12,7 @@ opkg install luci-lib-px5g px5g-standalone libustream-openssl
 ```bash
 opkg update
 opkg install https-dns-proxy luci-app-https-dns-proxy
+/etc/init.d/dnsmasq restart
 ```
 
 ## Force dhcp ( TP-Link powerline overwrite default GW on dhcp clients )
