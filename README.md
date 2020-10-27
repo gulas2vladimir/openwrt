@@ -23,3 +23,6 @@ uci set dhcp.lan.dhcp_option='3,192.168.0.1' '6,192.168.0.1'
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
+
+3 - gw
+6 - DNS
