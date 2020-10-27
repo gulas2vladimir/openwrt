@@ -24,5 +24,5 @@ uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
 
-3 - gw
+3 - gw  
 6 - DNS
