@@ -28,3 +28,11 @@ uci commit dhcp
 3 - gw  
 6 - DNS
 ```
+
+## upgrade all packages each file separately
+```bash
+#!/bin/sh
+opkg update
+opkg list-upgradable | cut -f 1 -d ' ' | while IFS='$\n' read -r line; do opkg install $line ; done
+exit 0
+```
