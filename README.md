@@ -30,9 +30,17 @@ uci commit dhcp
 ```
 
 ## upgrade all packages each file separately
-```bash
+```sh
 #!/bin/sh
+#
 opkg update
-opkg list-upgradable | cut -f 1 -d ' ' | while IFS='$\n' read -r line; do opkg install $line ; done
-exit 0
+
+upgrade_list="$(opkg list-upgradable | cut -f 1 -d ' ')"
+
+if [ -n $upgrade_list ]; then
+  for pkg in $upgrade_list; do
+    echo "upgrade $pkg"
+    opkg install $pkg
+  done
+fi
 ```
