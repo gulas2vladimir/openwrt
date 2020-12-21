@@ -41,7 +41,7 @@ opkg update
 
 upgrade_list="$(opkg list-upgradable | cut -f 1 -d ' ')"
 
-if [ -n $upgrade_list ]; then
+if [ -n "$upgrade_list" ]; then
   for pkg in $upgrade_list; do
     echo "upgrade $pkg"
     opkg install $pkg
