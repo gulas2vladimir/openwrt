@@ -1,8 +1,8 @@
 # OpenWRT
 
-## tcp tunning
+## tcp tunning and conntrack: generic helper won't handle protocol 47. fix
 ```sh
-opkg install kmod-tcp-bbr
+opkg install kmod-tcp-bbr kmod-nf-nathelper-extra
 ```
 ## enable HTTPS on uhttpd
 
@@ -17,10 +17,9 @@ opkg install luci-lib-px5g px5g-standalone libustream-openssl
 opkg update
 opkg install unbound-daemon-heavy luci-app-unbound
 uci set unbound.enabled=1
-uci set unbound.listen_port=5353
-uci set unbound.protocol=ip4_only
-uci set unbound.@zone[0].enabled='1'
+uci set unbound.manual_conf=1
 uci commit unbound
+cp unbound* /etc/unbound/
 /etc/init.d/unbound restart
 ```
 
