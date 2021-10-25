@@ -2,7 +2,7 @@
 
 ## tcp tunning and conntrack: generic helper won't handle protocol 47. fix
 ```sh
-opkg install kmod-tcp-bbr kmod-nf-nathelper-extra stubby
+opkg install kmod-tcp-bbr kmod-nf-nathelper-extra
 ```
 ## enable HTTPS on uhttpd
 
@@ -14,6 +14,7 @@ opkg install luci-lib-px5g px5g-standalone libustream-openssl
 ## DNS Recursive
 
 ```sh
+opkg install stubby
 cp stubby /etc/config/
 cp stubby.yml /etc/stubby/
 /etc/init.d/stubby enable
