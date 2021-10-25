@@ -1,0 +1,17 @@
+# /etc/stubby/stubby.yml
+resolution_type: GETDNS_RESOLUTION_STUB
+appdata_dir: "/var/lib/stubby"
+tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+tls_query_padding_blocksize: 128
+edns_client_subnet_private: 1
+idle_timeout: 10000
+listen_addresses:
+  - 127.0.0.1@5453
+dns_transport_list:
+  - GETDNS_TRANSPORT_TLS
+round_robin_upstreams: 1
+upstream_recursive_servers:
+  - address_data: 193.17.47.1
+    tls_auth_name: "odvr.nic.cz"
+  - address_data: 185.43.135.1
+    tls_auth_name: "odvr.nic.cz"

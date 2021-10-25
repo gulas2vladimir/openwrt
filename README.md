@@ -2,7 +2,7 @@
 
 ## tcp tunning and conntrack: generic helper won't handle protocol 47. fix
 ```sh
-opkg install kmod-tcp-bbr kmod-nf-nathelper-extra
+opkg install kmod-tcp-bbr kmod-nf-nathelper-extra stubby
 ```
 ## enable HTTPS on uhttpd
 
@@ -14,27 +14,25 @@ opkg install luci-lib-px5g px5g-standalone libustream-openssl
 ## DNS Recursive
 
 ```sh
-opkg update
-opkg install unbound-daemon-heavy luci-app-unbound
-uci set unbound.enabled=1
-uci set unbound.manual_conf=1
-uci commit unbound
-cp unbound* /etc/unbound/
-/etc/init.d/unbound restart
+cp stubby /etc/config/
+cp stubby.yml /etc/stubby/
+/etc/init.d/stubby enable
+/etc/init.d/stubby restart
 ```
 
 ## Force dhcp ( TP-Link powerline overwrite default GW on dhcp clients )
 
 ```sh
 uci set dhcp.lan.force='1'
-uci set dhcp.lan.dhcp_lists='3,192.168.0.1'
-uci set dhcp.lan.dhcp_lists='6,192.168.0.1'
+uci set dhcp.@dnsmasq[0].server='127.0.0.1#5453'
+uci add_list dhcp.lan.dhcp_option='3,192.168.0.1'
+uci add_list dhcp.lan.dhcp_option='6,192.168.0.1'
 uci commit dhcp
 /etc/init.d/dnsmasq restart
 ```
 
 ```
-3 - gw  
+3 - gw
 6 - DNS
 ```
 
