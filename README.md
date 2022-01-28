@@ -25,7 +25,7 @@ cp stubby.yml /etc/stubby/
 
 ```sh
 uci set dhcp.lan.force='1'
-uci set dhcp.@dnsmasq[0].server='127.0.0.1#5453'
+uci set dhcp.@dnsmasq[0].server='127.0.0.1#5353'
 uci add_list dhcp.lan.dhcp_option='3,192.168.0.1'
 uci add_list dhcp.lan.dhcp_option='6,192.168.0.1'
 uci commit dhcp
@@ -37,6 +37,16 @@ uci commit dhcp
 6 - DNS
 ```
 
+## all DNS queries to another server like pi-hole
+/etc/firewall.user
+
+```sh
+iptables -t nat -A POSTROUTING -j MASQUERADE
+iptables -t nat -I PREROUTING -i br-lan -p tcp --dport 53 -j DNAT --to 192.168.0.2:53
+iptables -t nat -I PREROUTING -i br-lan -p udp --dport 53 -j DNAT --to 192.168.0.2:53
+iptables -t nat -I PREROUTING -i br-lan -p tcp -s 192.168.0.2 --dport 53 -j ACCEPT
+iptables -t nat -I PREROUTING -i br-lan -p udp -s 192.168.0.2 --dport 53 -j ACCEPT
+```
 ## upgrade all packages each file separately
 ```sh
 #!/bin/sh
